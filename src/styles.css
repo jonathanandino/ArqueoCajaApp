@@ -1,0 +1,40 @@
+/* style.css */
+.root {
+    -fx-background-color: #121212;
+    -fx-padding: 40;
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #EEEEEE;
+}
+
+.label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16px;
+}
+
+.text-field {
+    -fx-background-color: #1E1E1E;
+    -fx-text-fill: white;
+    -fx-border-color: #f28500;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+}
+
+.button {
+    -fx-background-color: #f28500;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+}
+
+.button:hover {
+    -fx-background-color: #ff9a33;
+}
+
+.button:pressed {
+    -fx-background-color: #cc6f00;
+}
+
