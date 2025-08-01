@@ -119,44 +119,54 @@ public class Main extends Application {
             int cantidad = text.isEmpty() ? 0 : Integer.parseInt(text);
             total += valor * cantidad;
         }
-        totalLabel.setText("Total: $ " + total);
+        totalLabel.setText("Total: $            " + total);
     }
 
     private void imprimirTicket() {
         StringBuilder contenido = new StringBuilder();
-        contenido.append("         *** ARQUEO DE CAJA ***\n");
-        contenido.append("Fecha: ").append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))).append("\n");
-        contenido.append("----------------------------------\n");
-        contenido.append(String.format("%-8s %-8s %-10s\n", "Denom", "Cant", "Subtotal"));
-        contenido.append("----------------------------------\n");
+        contenido.append("       *** ARQUEO DE CAJA ***\n").append("\n");
+        contenido.append("Fecha: ")
+                .append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
+                .append("\n");
+        contenido.append("\n----------------------------------\n");
 
         int total = 0;
         for (int valor : inputFields.keySet()) {
             String texto = inputFields.get(valor).getText();
             int cantidad = texto.isEmpty() ? 0 : Integer.parseInt(texto);
-            int subtotal = valor * cantidad;
             if (cantidad > 0) {
-                contenido.append(String.format("%-8s %-8s %-10s\n", "$" + valor, cantidad, "$" + subtotal));
+                int subtotal = valor * cantidad;
+                contenido.append(String.format("$ %4d x %3d =         $ %5d\n", valor, cantidad, subtotal));
                 total += subtotal;
             }
         }
 
         contenido.append("----------------------------------\n");
-        contenido.append(String.format("%-18s %s\n", "TOTAL:", "$" + total));
-        contenido.append("\n");
+        contenido.append("TOTAL:                 $ ").append(total).append("\n\n");
 
-        TextArea ticketArea = new TextArea(contenido.toString());
-        ticketArea.setFont(Font.font("Courier New", 10));
-        ticketArea.setWrapText(false);
+        // Usar Label en lugar de TextArea
+        Label ticketLabel = new Label(contenido.toString());
+        ticketLabel.setFont(Font.font("Courier New", 10));
+        ticketLabel.setWrapText(false);
+        ticketLabel.setTextFill(Color.BLACK);
+
+        // Empaquetar en un VBox sin scroll
+        VBox printable = new VBox(ticketLabel);
+        printable.setPadding(new Insets(10));
+        printable.setStyle("-fx-background-color: white;");
+
+        // Ajustar el tamaño a su contenido
+        printable.setMinSize(300, Region.USE_PREF_SIZE);
 
         PrinterJob job = PrinterJob.createPrinterJob();
         if (job != null && job.showPrintDialog(null)) {
-            boolean success = job.printPage(ticketArea);
+            boolean success = job.printPage(printable);
             if (success) {
                 job.endJob();
             }
         }
     }
+
 
     public static void main(String[] args) {
         launch(args);
