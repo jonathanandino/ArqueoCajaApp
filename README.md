@@ -1,3 +1,6 @@
+![Java](https://img.shields.io/badge/Java-17-blue?logo=openjdk)
+![JavaFX](https://img.shields.io/badge/JavaFX-21-green)
+
 # 🧾 Arqueo de Caja
 
 Aplicación de escritorio desarrollada en **Java + JavaFX** para realizar el arqueo de caja de manera sencilla y rápida.  
